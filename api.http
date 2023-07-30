@@ -1,12 +1,10 @@
 GET http://localhost:3000/
 
 ###
-
 # redirect
 GET http://localhost:3000/api/redirect
 
 ###
-
 POST http://localhost:3000/api/data HTTP/1.1
 Content-Type: application/json; charset=UTF-8
 
@@ -15,10 +13,9 @@ Content-Type: application/json; charset=UTF-8
 }
 
 ###
-
-PUT http://localhost:3000/
-Content-Type: application/json; charset=UTF-8
-
-{
-  "test": true
-}
+# chain request test
+GET http://localhost:3000/api/chainrequest
+###
+PUT http://localhost:3000/api/chainrequest
+###
+POST http://localhost:3000/api/chainrequest

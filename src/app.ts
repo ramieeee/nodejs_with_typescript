@@ -22,9 +22,21 @@ app.post("/api/data", (req: Request, res: Response) => {
 });
 
 // it will listen to all http methods
-app.all("/api/all", (req: Request, res: Response) => {
-  return res.sendStatus(200);
-});
+// app.all("/api/all", (req: Request, res: Response) => {
+//   return res.sendStatus(200);
+// });
+
+app
+  .route("/api/chainrequest")
+  .get((req: Request, res: Response) => {
+    return res.send("chain request method: GET");
+  })
+  .post((req: Request, res: Response) => {
+    return res.send("chain request method: POST");
+  })
+  .put((req: Request, res: Response) => {
+    return res.send("chain request method: PUT");
+  });
 
 app.listen(3000, () => {
   console.log("Application listening at port 3000");
