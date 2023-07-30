@@ -2,9 +2,23 @@ GET http://localhost:3000/
 
 ###
 
+# redirect
+GET http://localhost:3000/api/redirect
+
+###
+
 POST http://localhost:3000/api/data HTTP/1.1
 Content-Type: application/json; charset=UTF-8
 
 {
-  "name": "sample",
+  "test": true
+}
+
+###
+
+PUT http://localhost:3000/
+Content-Type: application/json; charset=UTF-8
+
+{
+  "test": true
 }
