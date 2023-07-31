@@ -8,8 +8,7 @@ app.use(express.json());
 
 // middleware
 const middleware = (req: Request, res: Response, next: NextFunction) => {
-  // @ts-ignore
-  req.name = "Tom";
+  res.locals.name = "Tom";
   next();
 };
 // it applies middleware to every methods and functions
@@ -20,8 +19,7 @@ app.use(middleware);
 // });
 
 app.get("/", (req: Request, res: Response) => {
-  // @ts-ignore
-  console.log(req.name); // it comes from middleware
+  console.log(res.locals.name); // it comes from middleware
   return res.json({ message: "hello world" });
   // return res.send({ message: "hello world" });
 });
@@ -42,12 +40,19 @@ app.post("/api/data", (req: Request, res: Response) => {
 // });
 
 // dynamic params
-app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
-  console.log(req.params);
-  console.log(req.params.bookId);
-  console.log(req.params.authorId);
-  return res.send(req.params);
-});
+app.get(
+  "/api/books/:bookId/:authorId",
+  (
+    req: Request<{ bookId: string; authorId: number }, {}, { name: string }>,
+    res: Response
+  ) => {
+    console.log(req.params);
+    console.log(req.params.bookId);
+    console.log(req.params.authorId);
+    console.log(req.body.name);
+    return res.send(req.params);
+  }
+);
 
 // route handler
 // it allows multiple functions as parameter and work as synchronous
