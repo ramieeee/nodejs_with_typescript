@@ -26,6 +26,13 @@ app.post("/api/data", (req: Request, res: Response) => {
 //   return res.sendStatus(200);
 // });
 
+app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
+  console.log(req.params);
+  console.log(req.params.bookId);
+  console.log(req.params.authorId);
+  return res.send(req.params);
+});
+
 app
   .route("/api/chainrequest")
   .get((req: Request, res: Response) => {

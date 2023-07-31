@@ -9,6 +9,10 @@ GET http://localhost:3000/api/redirect
 GET http://localhost:3000/api/abTESTTESTcd
 
 ###
+# dynamic params
+GET http://localhost:3000/api/books/narnia/5
+
+###
 POST http://localhost:3000/api/data HTTP/1.1
 Content-Type: application/json; charset=UTF-8
 
