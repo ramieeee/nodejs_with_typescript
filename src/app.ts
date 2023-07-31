@@ -1,12 +1,27 @@
 import * as express from "express";
-import { Response, Request } from "express";
+import { Response, Request, NextFunction } from "express";
 
 const app = express();
 
 // we could parse json body. it is middleware
 app.use(express.json());
 
+// middleware
+const middleware = (req: Request, res: Response, next: NextFunction) => {
+  // @ts-ignore
+  req.name = "Tom";
+  next();
+};
+// it applies middleware to every methods and functions
+app.use(middleware);
+// if middleware is applied to only one method, give it to parameter
+// app.get("/api", [middleware], (req: Request, res: Response) => {
+//   return res.json({ message: "hello world" });
+// });
+
 app.get("/", (req: Request, res: Response) => {
+  // @ts-ignore
+  console.log(req.name); // it comes from middleware
   return res.json({ message: "hello world" });
   // return res.send({ message: "hello world" });
 });
@@ -26,6 +41,7 @@ app.post("/api/data", (req: Request, res: Response) => {
 //   return res.sendStatus(200);
 // });
 
+// dynamic params
 app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
   console.log(req.params);
   console.log(req.params.bookId);
@@ -33,6 +49,22 @@ app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
   return res.send(req.params);
 });
 
+// route handler
+// it allows multiple functions as parameter and work as synchronous
+const bookA = (req: Request, res: Response, next: NextFunction) => {
+  console.log("first function");
+
+  // bookB function is triggered with this function
+  next();
+};
+
+const bookB = (req: Request, res: Response) => {
+  console.log("second function");
+  return res.sendStatus(200);
+};
+app.get("/api/book", [bookA, bookB]);
+
+// chain request
 app
   .route("/api/chainrequest")
   .get((req: Request, res: Response) => {
@@ -53,6 +85,7 @@ app.get("/api/ab*cd", (req: Request, res: Response) => {
   return res.send("ab * cd");
 });
 
+// listener
 app.listen(3000, () => {
   console.log("Application listening at port 3000");
 });
