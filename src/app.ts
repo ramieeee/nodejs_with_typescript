@@ -36,7 +36,15 @@ app
   })
   .put((req: Request, res: Response) => {
     return res.send("chain request method: PUT");
+  })
+  .all((req: Request, res: Response) => {
+    return res.send("X request");
   });
+
+// any letter in between ab and cd
+app.get("/api/ab*cd", (req: Request, res: Response) => {
+  return res.send("ab * cd");
+});
 
 app.listen(3000, () => {
   console.log("Application listening at port 3000");
