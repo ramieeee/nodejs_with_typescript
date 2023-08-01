@@ -1,3 +1,4 @@
+import { error } from "console";
 import * as express from "express";
 import { Response, Request, NextFunction } from "express";
 
@@ -88,6 +89,12 @@ app
 // any letter in between ab and cd
 app.get("/api/ab*cd", (req: Request, res: Response) => {
   return res.send("ab * cd");
+});
+
+// error handling
+app.get("/error", (req: Request, res: Response) => {
+  // throw new Error("boom!");
+  return res.sendStatus(500);
 });
 
 // listener
