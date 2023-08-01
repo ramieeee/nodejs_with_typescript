@@ -1,8 +1,11 @@
-import { error } from "console";
 import * as express from "express";
+import helmet from "helmet";
 import { Response, Request, NextFunction } from "express";
 
 const app = express();
+
+// security purpose. changes response header
+app.use(helmet());
 
 // we could parse json body. it is middleware
 app.use(express.json());
